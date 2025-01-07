@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+    android:id="@+id/layout_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:text="Voronezh,\nRussia"
-        android:textColor="@android:color/primary_text_light"
+        android:textColor="?android:attr/textColorPrimary"
         android:textSize="34sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@id/button_change_location"
@@ -24,8 +24,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Tue, Jan 7 2025"
-        android:textColor="@android:color/secondary_text_light"
-        android:textSize="12sp"
+        android:textColor="?android:attr/textColorSecondary"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="@id/text_location"
         app:layout_constraintTop_toBottomOf="@id/text_location" />
 
@@ -36,10 +36,14 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:background="@null"
+        android:padding="2dp"
         android:scaleType="fitCenter"
+        app:layout_constraintEnd_toStartOf="@+id/button_change_location2"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/baseline_edit_location_alt_24" />
+        app:srcCompat="@drawable/baseline_edit_location_alt_24"
+        app:tint="?android:attr/textColorPrimary" />
 
     <ImageButton
         android:id="@+id/button_change_location2"
@@ -49,9 +53,27 @@
         android:background="@null"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="@id/button_change_location"
-        app:layout_constraintStart_toEndOf="@id/button_change_location"
+        app:layout_constraintEnd_toStartOf="@+id/button_about"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/button_change_location"
         app:layout_constraintTop_toTopOf="@id/button_change_location"
-        app:srcCompat="@drawable/baseline_refresh_24" />
+        app:srcCompat="@drawable/baseline_refresh_24"
+        app:tint="?android:attr/textColorPrimary" />
+
+    <ImageButton
+        android:id="@+id/button_about"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="16dp"
+        android:background="@null"
+        android:padding="2dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="@id/button_change_location"
+        app:layout_constraintStart_toEndOf="@+id/button_change_location2"
+        app:layout_constraintTop_toTopOf="@id/button_change_location"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/baseline_info_24"
+        app:tint="?android:attr/textColorPrimary" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_weather_details"
@@ -68,7 +90,7 @@
             android:layout_height="64dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:tint="@android:color/primary_text_light"
+            app:tint="?android:attr/textColorPrimary"
             tools:srcCompat="@drawable/baseline_water_drop_24" />
 
         <ImageView
@@ -78,7 +100,7 @@
             android:layout_marginStart="30dp"
             app:layout_constraintStart_toEndOf="@id/image_humidity"
             app:layout_constraintTop_toTopOf="parent"
-            app:tint="@android:color/primary_text_light"
+            app:tint="?android:attr/textColorPrimary"
             tools:srcCompat="@drawable/baseline_air_24" />
 
         <ImageView
@@ -88,7 +110,7 @@
             android:layout_marginStart="30dp"
             app:layout_constraintStart_toEndOf="@id/image_pressure"
             app:layout_constraintTop_toTopOf="parent"
-            app:tint="@android:color/primary_text_light"
+            app:tint="?android:attr/textColorPrimary"
             tools:srcCompat="@drawable/baseline_umbrella_24" />
 
         <ImageView
@@ -98,7 +120,7 @@
             android:layout_marginStart="30dp"
             app:layout_constraintStart_toEndOf="@id/image_wind"
             app:layout_constraintTop_toTopOf="parent"
-            app:tint="@android:color/primary_text_light"
+            app:tint="?android:attr/textColorPrimary"
             tools:srcCompat="@drawable/baseline_file_download_24" />
 
         <TextView
@@ -106,7 +128,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Humidity"
-            android:textColor="@android:color/tertiary_text_light"
+            android:textColor="?android:attr/textColorSecondary"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="@id/image_humidity"
             app:layout_constraintStart_toStartOf="@id/image_humidity"
@@ -117,7 +139,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Wind speed"
-            android:textColor="@android:color/tertiary_text_light"
+            android:textColor="?android:attr/textColorSecondary"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="@id/image_wind"
             app:layout_constraintStart_toStartOf="@id/image_wind"
@@ -128,7 +150,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Pressure"
-            android:textColor="@android:color/tertiary_text_light"
+            android:textColor="?android:attr/textColorSecondary"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="@id/image_pressure"
             app:layout_constraintStart_toStartOf="@id/image_pressure"
@@ -140,7 +162,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="-4dp"
             android:text="kph"
-            android:textColor="@android:color/tertiary_text_light"
+            android:textColor="?android:attr/textColorTertiary"
             android:textSize="10sp"
             app:layout_constraintEnd_toEndOf="@id/image_wind"
             app:layout_constraintStart_toStartOf="@id/image_wind"
@@ -152,7 +174,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="-4dp"
             android:text="mmHg"
-            android:textColor="@android:color/tertiary_text_light"
+            android:textColor="?android:attr/textColorTertiary"
             android:textSize="10sp"
             app:layout_constraintEnd_toEndOf="@id/text_pressure_value"
             app:layout_constraintStart_toStartOf="@id/text_pressure_value"
@@ -163,45 +185,45 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="44%"
-            android:textColor="@android:color/secondary_text_light"
-            android:textSize="20sp"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@id/image_humidity"
             app:layout_constraintHorizontal_bias="0.533"
             app:layout_constraintStart_toStartOf="@id/image_humidity"
-            app:layout_constraintTop_toBottomOf="@id/text_humidity_label" />
+            app:layout_constraintTop_toBottomOf="@id/barrier_labels" />
 
         <TextView
             android:id="@+id/text_wind_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="21.0"
-            android:textColor="@android:color/secondary_text_light"
-            android:textSize="20sp"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@id/image_wind"
             app:layout_constraintStart_toStartOf="@id/image_wind"
-            app:layout_constraintTop_toBottomOf="@id/text_wind_label" />
+            app:layout_constraintTop_toBottomOf="@id/barrier_labels" />
 
         <TextView
             android:id="@+id/text_pressure_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="762"
-            android:textColor="@android:color/secondary_text_light"
-            android:textSize="20sp"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@id/image_pressure"
             app:layout_constraintStart_toStartOf="@id/image_pressure"
-            app:layout_constraintTop_toBottomOf="@id/text_pressure_label" />
+            app:layout_constraintTop_toBottomOf="@id/barrier_labels" />
 
         <TextView
             android:id="@+id/text_chance_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Rain chance"
+            android:text="Precipitation\nchance"
             android:textAlignment="center"
-            android:textColor="@android:color/tertiary_text_light"
+            android:textColor="?android:attr/textColorSecondary"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="@id/image_chance"
             app:layout_constraintStart_toStartOf="@id/image_chance"
@@ -212,12 +234,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="34%"
-            android:textColor="@android:color/secondary_text_light"
-            android:textSize="20sp"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@id/image_chance"
             app:layout_constraintStart_toStartOf="@id/image_chance"
-            app:layout_constraintTop_toBottomOf="@id/text_chance_label" />
+            app:layout_constraintTop_toBottomOf="@id/barrier_labels" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrier_labels"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="text_humidity_label,text_wind_label,text_pressure_label,text_chance_label" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -234,11 +263,11 @@
             android:id="@+id/image_weather"
             android:layout_width="160dp"
             android:layout_height="160dp"
-            android:tint="#FF6F00"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/baseline_sunny_24" />
+            app:srcCompat="@drawable/baseline_sunny_24"
+            app:tint="#FF6F00" />
 
         <TextView
             android:id="@+id/text_current_temp"
@@ -246,7 +275,7 @@
             android:layout_height="wrap_content"
             android:includeFontPadding="false"
             android:text="-4"
-            android:textColor="@android:color/primary_text_light"
+            android:textColor="?android:attr/textColorPrimary"
             android:textSize="96sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@id/image_weather"
@@ -260,7 +289,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="-12dp"
             android:text="°C"
-            android:textColor="@android:color/primary_text_light"
+            android:textColor="?android:attr/textColorPrimary"
             android:textSize="24sp"
             app:layout_constraintStart_toEndOf="@id/text_current_temp"
             app:layout_constraintTop_toTopOf="@id/text_current_temp" />
@@ -272,7 +301,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="-24dp"
             android:text="sunny"
-            android:textColor="@android:color/primary_text_light"
+            android:textColor="?android:attr/textColorPrimary"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="@id/text_temp_units"
             app:layout_constraintStart_toEndOf="@id/image_weather"
@@ -285,10 +314,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="30dp"
-        android:backgroundTint="@android:color/primary_text_light"
+        android:backgroundTint="?android:attr/textColorPrimary"
         android:text="24-Hour Forecast"
+        android:textColor="?android:attr/textColorPrimaryInverse"
         app:cornerRadius="@null"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -300,8 +330,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
-        android:backgroundTint="@android:color/primary_text_light"
+        android:backgroundTint="?android:attr/textColorPrimary"
         android:text="Weekly Forecast"
+        android:textColor="?android:attr/textColorPrimaryInverse"
         app:cornerRadius="@null"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
