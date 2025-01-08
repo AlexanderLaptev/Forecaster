@@ -9,6 +9,7 @@ import ru.trfx.apps.forecaster.R
 
 class LocationAdapter(
     var data: List<LocationItem>,
+    val onClick: (Int) -> Unit,
 ) : RecyclerView.Adapter<LocationAdapter.ViewHolder>() {
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val nameView = view.findViewById<TextView>(R.id.text_name)
@@ -19,7 +20,12 @@ class LocationAdapter(
         val view = LayoutInflater
             .from(parent.context)
             .inflate(R.layout.item_location, parent, false)
-        return ViewHolder(view)
+
+        val vh = ViewHolder(view)
+        view.isClickable = true
+        view.setOnClickListener { onClick(vh.adapterPosition) }
+
+        return vh
     }
 
     override fun getItemCount(): Int = data.size

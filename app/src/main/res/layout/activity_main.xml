@@ -5,6 +5,7 @@
     android:id="@+id/layout_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:visibility="visible"
     tools:context=".MainActivity">
 
     <TextView
@@ -90,8 +91,8 @@
             android:layout_height="64dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:tint="?android:attr/textColorPrimary"
-            tools:srcCompat="@drawable/baseline_water_drop_24" />
+            app:srcCompat="@drawable/baseline_water_drop_24"
+            app:tint="?android:attr/textColorPrimary" />
 
         <ImageView
             android:id="@+id/image_wind"
@@ -100,8 +101,8 @@
             android:layout_marginStart="30dp"
             app:layout_constraintStart_toEndOf="@id/image_humidity"
             app:layout_constraintTop_toTopOf="parent"
-            app:tint="?android:attr/textColorPrimary"
-            tools:srcCompat="@drawable/baseline_air_24" />
+            app:srcCompat="@drawable/baseline_air_24"
+            app:tint="?android:attr/textColorPrimary" />
 
         <ImageView
             android:id="@+id/image_chance"
@@ -110,8 +111,8 @@
             android:layout_marginStart="30dp"
             app:layout_constraintStart_toEndOf="@id/image_pressure"
             app:layout_constraintTop_toTopOf="parent"
-            app:tint="?android:attr/textColorPrimary"
-            tools:srcCompat="@drawable/baseline_umbrella_24" />
+            app:srcCompat="@drawable/baseline_umbrella_24"
+            app:tint="?android:attr/textColorPrimary" />
 
         <ImageView
             android:id="@+id/image_pressure"
@@ -120,8 +121,8 @@
             android:layout_marginStart="30dp"
             app:layout_constraintStart_toEndOf="@id/image_wind"
             app:layout_constraintTop_toTopOf="parent"
-            app:tint="?android:attr/textColorPrimary"
-            tools:srcCompat="@drawable/baseline_file_download_24" />
+            app:srcCompat="@drawable/baseline_file_download_24"
+            app:tint="?android:attr/textColorPrimary" />
 
         <TextView
             android:id="@+id/text_humidity_label"
@@ -299,7 +300,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="-24dp"
+            android:layout_marginTop="-20dp"
             android:text="sunny"
             android:textColor="?android:attr/textColorPrimary"
             android:textSize="24sp"

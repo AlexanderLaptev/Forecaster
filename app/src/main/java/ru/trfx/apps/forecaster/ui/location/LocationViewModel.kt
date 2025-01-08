@@ -10,12 +10,15 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import ru.trfx.apps.forecaster.data.location.MockLocationRepo
+import ru.trfx.apps.forecaster.data.location.LocationRepository
+import ru.trfx.apps.forecaster.data.location.LocationSearchResult
 
 @OptIn(FlowPreview::class)
-class LocationViewModel : ViewModel() {
+class LocationViewModel(
+    private val repository: LocationRepository,
+) : ViewModel() {
     companion object {
-        private const val DEBOUNCE_TIME_MS = 750L
+        private const val DEBOUNCE_TIME_MS = 500L
     }
 
     private val _searchQuery = MutableStateFlow("")
@@ -24,12 +27,19 @@ class LocationViewModel : ViewModel() {
     private val _locationItems = MutableStateFlow<List<LocationItem>>(emptyList())
     val locationItems = _locationItems.asStateFlow()
 
+    var searchResults: List<LocationSearchResult> = emptyList()
+
     init {
         viewModelScope.launch {
             _searchQuery.debounce(DEBOUNCE_TIME_MS).collectLatest { query ->
+                if (query.isBlank()) return@collectLatest
                 launch(Dispatchers.IO) {
-                    val results = MockLocationRepo.searchLocations(query, "en").results
-                    val items = results.map { LocationItem(it.name!!, it.admin1!!, it.country!!) }
+                    searchResults = repository.searchLocations(query, "en").results
+                    val items = searchResults.map { LocationItem(
+                        it.name ?: "N/A",
+                        it.admin1 ?: "N/A",
+                        it.country ?: "N/A",
+                    ) }
                     _locationItems.update { items }
                 }
             }
@@ -38,5 +48,8 @@ class LocationViewModel : ViewModel() {
 
     fun updateSearchQuery(query: String) {
         _searchQuery.update { query }
+        if (query.isBlank()) {
+            _locationItems.update { emptyList() }
+        }
     }
 }
