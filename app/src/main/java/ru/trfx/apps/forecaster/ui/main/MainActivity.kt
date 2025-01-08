@@ -5,11 +5,13 @@ import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
 import android.os.Bundle
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Lifecycle
@@ -23,18 +25,25 @@ import ru.trfx.apps.forecaster.data.preferences.LocationPrefs
 import ru.trfx.apps.forecaster.data.preferences.PreferencesRepository
 import ru.trfx.apps.forecaster.ui.location.LocationActivity
 import java.util.Locale
-import kotlin.math.roundToInt
 
 class MainActivity : AppCompatActivity() {
+    companion object {
+        private const val DATE_PATTERN = "EEE, MMM dd, yyyy"
+
+        private val weatherTypeToDrawableMap = mapOf(
+            WeatherType.Sunny to R.drawable.sunny_24px,
+            WeatherType.Cloudy to R.drawable.cloud_24px,
+            WeatherType.PartlyCloudy to R.drawable.partly_cloudy_day_24px,
+            WeatherType.Raining to R.drawable.rainy_24px,
+            WeatherType.Snowing to R.drawable.weather_snowy_24px,
+        )
+    }
+
     private val viewModel: MainViewModel by viewModel()
     private val prefsRepo: PreferencesRepository by inject()
 
     private lateinit var locationTextView: TextView
     private lateinit var currentDateTextView: TextView
-
-    companion object {
-        const val DATE_PATTERN = "EEE, MMM dd, yyyy"
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -91,6 +100,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupViewmodel() {
+        val icon = findViewById<ImageView>(R.id.image_weather)
+        val details = findViewById<TextView>(R.id.text_weather_desc)
         val temperature = findViewById<TextView>(R.id.text_current_temp)
         val humidity = findViewById<TextView>(R.id.text_humidity_value)
         val windSpeed = findViewById<TextView>(R.id.text_wind_value)
@@ -100,6 +111,13 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collect {
+                    val drawable = AppCompatResources.getDrawable(
+                        this@MainActivity,
+                        weatherTypeToDrawableMap[it.weatherType]!!
+                    )
+                    icon.setImageDrawable(drawable)
+
+                    details.text = it.weatherType.key
                     temperature.text = String.format(Locale.US, "%.1f", it.temperature)
                     humidity.text = "${it.humidity}%"
                     windSpeed.text = String.format(Locale.US, "%.1f", it.windSpeed)

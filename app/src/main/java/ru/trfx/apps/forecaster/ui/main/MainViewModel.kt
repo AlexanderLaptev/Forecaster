@@ -32,7 +32,7 @@ class MainViewModel(
     private fun CurrentWeatherResponse.toUiState(): MainScreenWeatherUiState {
         val weather = this.current!!
         return MainScreenWeatherUiState(
-            WeatherType.Sunny,
+            WeatherType.fromCode(weather.weatherCode!!),
             weather.temperature2m!!.toFloat(),
             weather.relativeHumidity2m!!,
             weather.windSpeed10m!!.toFloat(),

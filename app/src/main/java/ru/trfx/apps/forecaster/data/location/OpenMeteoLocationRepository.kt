@@ -1,7 +1,6 @@
 package ru.trfx.apps.forecaster.data.location
 
 import retrofit2.http.GET
-import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface OpenMeteoLocationRepository : LocationRepository {

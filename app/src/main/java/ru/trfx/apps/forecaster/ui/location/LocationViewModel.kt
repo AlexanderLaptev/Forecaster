@@ -35,11 +35,13 @@ class LocationViewModel(
                 if (query.isBlank()) return@collectLatest
                 launch(Dispatchers.IO) {
                     searchResults = repository.searchLocations(query, "en").results
-                    val items = searchResults.map { LocationItem(
-                        it.name ?: "N/A",
-                        it.admin1 ?: "N/A",
-                        it.country ?: "N/A",
-                    ) }
+                    val items = searchResults.map {
+                        LocationItem(
+                            it.name ?: "N/A",
+                            it.admin1 ?: "N/A",
+                            it.country ?: "N/A",
+                        )
+                    }
                     _locationItems.update { items }
                 }
             }
