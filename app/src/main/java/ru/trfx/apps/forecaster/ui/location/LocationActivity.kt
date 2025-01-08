@@ -12,17 +12,19 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import ru.trfx.apps.forecaster.MainActivity
 import ru.trfx.apps.forecaster.R
-import ru.trfx.apps.forecaster.data.PreferencesConstants
+import ru.trfx.apps.forecaster.data.preferences.LocationPrefs
+import ru.trfx.apps.forecaster.data.preferences.PreferencesRepository
+import ru.trfx.apps.forecaster.ui.main.MainActivity
 
 class LocationActivity : AppCompatActivity() {
     private val viewModel: LocationViewModel by viewModel()
+    private val prefsRepo: PreferencesRepository by inject()
 
     private lateinit var searchView: SearchView
 
@@ -60,14 +62,14 @@ class LocationActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         adapter = LocationAdapter(viewModel.locationItems.value) {
             val location = viewModel.searchResults[it]
-            val prefs = PreferenceManager.getDefaultSharedPreferences(this)
-            with(prefs.edit()) {
-                putFloat(PreferencesConstants.LOCATION_LATITUDE, location.latitude!!.toFloat())
-                putFloat(PreferencesConstants.LOCATION_LONGITUDE, location.longitude!!.toFloat())
-                putString(PreferencesConstants.LOCATION_NAME, location.name!!)
-                putString(PreferencesConstants.LOCATION_COUNTRY, location.country!!)
-                apply()
-            }
+            prefsRepo.saveLocation(
+                LocationPrefs(
+                    location.name!!,
+                    location.country!!,
+                    location.latitude!!.toFloat(),
+                    location.longitude!!.toFloat()
+                )
+            )
             startActivity(Intent(this, MainActivity::class.java))
         }
         recyclerView.adapter = adapter
