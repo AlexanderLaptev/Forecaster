@@ -31,7 +31,6 @@ class LocationViewModel(
 
     init {
         viewModelScope.launch {
-            // TODO: tweak debouncing
             _searchQuery.debounce(DEBOUNCE_TIME_MS).collectLatest { query ->
                 if (query.isBlank()) return@collectLatest
                 launch(Dispatchers.IO) {

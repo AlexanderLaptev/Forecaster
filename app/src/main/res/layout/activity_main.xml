@@ -14,22 +14,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:text="Voronezh,\nRussia"
+        android:text="..."
         android:textColor="?android:attr/textColorPrimary"
         android:textSize="34sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@id/button_change_location"
-        app:layout_constraintTop_toBottomOf="@id/button_change_location" />
+        app:layout_constraintTop_toBottomOf="@id/button_change_location"
+        tools:text="Voronezh,\nRussia" />
 
     <TextView
         android:id="@+id/text_current_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tue, Jan 7 2025"
+        android:text="..."
         android:textColor="?android:attr/textColorSecondary"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="@id/text_location"
-        app:layout_constraintTop_toBottomOf="@id/text_location" />
+        app:layout_constraintTop_toBottomOf="@id/text_location"
+        tools:text="Tue, Jan 7 2025" />
 
     <ImageButton
         android:id="@+id/button_change_location"
@@ -81,7 +83,7 @@
         android:id="@+id/layout_weather_details"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/layout_weather_info">
@@ -186,38 +188,41 @@
             android:id="@+id/text_humidity_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="44%"
+            android:text="..."
             android:textColor="?android:attr/textColorPrimary"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@id/image_humidity"
             app:layout_constraintHorizontal_bias="0.533"
             app:layout_constraintStart_toStartOf="@id/image_humidity"
-            app:layout_constraintTop_toBottomOf="@id/barrier_labels" />
+            app:layout_constraintTop_toBottomOf="@id/barrier_labels"
+            tools:text="44%" />
 
         <TextView
             android:id="@+id/text_wind_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="21.0"
+            android:text="..."
             android:textColor="?android:attr/textColorPrimary"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@id/image_wind"
             app:layout_constraintStart_toStartOf="@id/image_wind"
-            app:layout_constraintTop_toBottomOf="@id/barrier_labels" />
+            app:layout_constraintTop_toBottomOf="@id/barrier_labels"
+            tools:text="21.0" />
 
         <TextView
             android:id="@+id/text_pressure_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="762"
+            android:text="..."
             android:textColor="?android:attr/textColorPrimary"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@id/image_pressure"
             app:layout_constraintStart_toStartOf="@id/image_pressure"
-            app:layout_constraintTop_toBottomOf="@id/barrier_labels" />
+            app:layout_constraintTop_toBottomOf="@id/barrier_labels"
+            tools:text="762" />
 
         <TextView
             android:id="@+id/text_chance_label"
@@ -235,13 +240,14 @@
             android:id="@+id/text_chance_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="34%"
+            android:text="..."
             android:textColor="?android:attr/textColorPrimary"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@id/image_chance"
             app:layout_constraintStart_toStartOf="@id/image_chance"
-            app:layout_constraintTop_toBottomOf="@id/barrier_labels" />
+            app:layout_constraintTop_toBottomOf="@id/barrier_labels"
+            tools:text="29%" />
 
         <androidx.constraintlayout.widget.Barrier
             android:id="@+id/barrier_labels"
@@ -263,33 +269,33 @@
 
         <ImageView
             android:id="@+id/image_weather"
-            android:layout_width="160dp"
-            android:layout_height="160dp"
-            android:tint="?android:attr/textColorPrimary"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/baseline_sunny_24" />
+            app:tint="?android:attr/textColorPrimary"
+            tools:srcCompat="@drawable/partly_cloudy_day_24px" />
 
         <TextView
             android:id="@+id/text_current_temp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:includeFontPadding="false"
-            android:text="-4"
+            android:text="..."
             android:textColor="?android:attr/textColorPrimary"
-            android:textSize="96sp"
+            android:textSize="60sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@id/image_weather"
-            app:layout_constraintEnd_toEndOf="@id/text_weather_desc"
-            app:layout_constraintStart_toStartOf="@id/text_weather_desc"
-            app:layout_constraintTop_toTopOf="@id/image_weather" />
+            app:layout_constraintStart_toEndOf="@+id/image_weather"
+            app:layout_constraintTop_toTopOf="@id/image_weather"
+            tools:text="0.0" />
 
         <TextView
             android:id="@+id/text_temp_units"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="-12dp"
             android:text="°C"
             android:textColor="?android:attr/textColorPrimary"
             android:textSize="24sp"
@@ -300,15 +306,14 @@
             android:id="@+id/text_weather_desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="-20dp"
-            android:text="sunny"
+            android:layout_marginTop="-12dp"
             android:textAlignment="center"
             android:textColor="?android:attr/textColorPrimary"
-            android:textSize="24sp"
-            app:layout_constraintEnd_toEndOf="@id/text_temp_units"
-            app:layout_constraintStart_toEndOf="@id/image_weather"
-            app:layout_constraintTop_toBottomOf="@id/text_current_temp" />
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="@+id/text_current_temp"
+            app:layout_constraintStart_toStartOf="@+id/text_current_temp"
+            app:layout_constraintTop_toBottomOf="@id/text_current_temp"
+            tools:text="partly\ncloudy" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

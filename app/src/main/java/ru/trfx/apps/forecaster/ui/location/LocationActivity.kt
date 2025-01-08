@@ -71,7 +71,8 @@ class LocationActivity : AppCompatActivity() {
                 )
             )
             startActivity(Intent(this, MainActivity::class.java).apply {
-                addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
+                addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             })
         }
         recyclerView.adapter = adapter

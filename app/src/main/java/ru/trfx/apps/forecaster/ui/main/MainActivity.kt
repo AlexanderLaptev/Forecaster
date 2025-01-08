@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.activity.addCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -31,7 +32,6 @@ import ru.trfx.apps.forecaster.ui.location.LocationActivity
 import java.util.Locale
 import kotlin.math.roundToInt
 
-// TODO: prevent orientation changing
 class MainActivity : AppCompatActivity() {
     companion object {
         private const val DATE_PATTERN = "EEE, MMM dd, yyyy"
@@ -51,10 +51,15 @@ class MainActivity : AppCompatActivity() {
 
         val locationPrefs = prefsRepo.loadLocation()
         if (locationPrefs == null) {
-            startActivity(Intent(this, PreferencesRepository::class.java).apply {
+            startActivity(Intent(this, LocationActivity::class.java).apply {
+                addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
             })
             return
+        }
+
+        onBackPressedDispatcher.addCallback {
+            finish()
         }
 
         setupUi()
