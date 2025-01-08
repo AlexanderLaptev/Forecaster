@@ -1,5 +1,6 @@
 package ru.trfx.apps.forecaster.ui.main
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
@@ -17,6 +18,8 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -29,14 +32,7 @@ import java.util.Locale
 class MainActivity : AppCompatActivity() {
     companion object {
         private const val DATE_PATTERN = "EEE, MMM dd, yyyy"
-
-        private val weatherTypeToDrawableMap = mapOf(
-            WeatherType.Sunny to R.drawable.sunny_24px,
-            WeatherType.Cloudy to R.drawable.cloud_24px,
-            WeatherType.PartlyCloudy to R.drawable.partly_cloudy_day_24px,
-            WeatherType.Raining to R.drawable.rainy_24px,
-            WeatherType.Snowing to R.drawable.weather_snowy_24px,
-        )
+        private val dateFormat = SimpleDateFormat(DATE_PATTERN, Locale.US)
     }
 
     private val viewModel: MainViewModel by viewModel()
@@ -44,6 +40,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var locationTextView: TextView
     private lateinit var currentDateTextView: TextView
+
+    private lateinit var dailyAdapter: DailyWeatherAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,6 +59,7 @@ class MainActivity : AppCompatActivity() {
         setupRefreshButton()
         setupAboutButton()
         setupViewmodel()
+        setupDaily()
 
         viewModel.refresh()
     }
@@ -99,6 +98,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun setupViewmodel() {
         val icon = findViewById<ImageView>(R.id.image_weather)
         val details = findViewById<TextView>(R.id.text_weather_desc)
@@ -113,7 +113,7 @@ class MainActivity : AppCompatActivity() {
                 viewModel.uiState.collect {
                     val drawable = AppCompatResources.getDrawable(
                         this@MainActivity,
-                        weatherTypeToDrawableMap[it.weatherType]!!
+                        it.weatherType.drawable
                     )
                     icon.setImageDrawable(drawable)
 
@@ -129,6 +129,9 @@ class MainActivity : AppCompatActivity() {
                         "Weather updated",
                         Toast.LENGTH_SHORT
                     ).show()
+
+                    dailyAdapter.data = it.dailyForecast
+                    dailyAdapter.notifyDataSetChanged()
                 }
             }
         }
@@ -136,13 +139,23 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupDateText() {
         currentDateTextView = findViewById(R.id.text_current_date)
-        val formatter = SimpleDateFormat(DATE_PATTERN, Locale.US)
         val date = Calendar.getInstance().time
-        currentDateTextView.text = formatter.format(date)
+        currentDateTextView.text = dateFormat.format(date)
     }
 
     private fun setupLocationText(prefs: LocationPrefs) {
         locationTextView = findViewById(R.id.text_location)
         locationTextView.text = "${prefs.name},\n${prefs.country}"
+    }
+
+    private fun setupDaily() {
+        val recycler = findViewById<RecyclerView>(R.id.recycler_daily)
+        dailyAdapter = DailyWeatherAdapter(this, emptyList())
+        recycler.layoutManager = LinearLayoutManager(
+            this,
+            LinearLayoutManager.HORIZONTAL,
+            false
+        )
+        recycler.adapter = dailyAdapter
     }
 }

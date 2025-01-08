@@ -23,7 +23,7 @@ interface OpenMeteoWeatherRepository : WeatherRepository {
         @Query("longitude") longitude: Float,
     ): HourlyWeatherResponse
 
-    @GET("https://api.open-meteo.com/v1/forecast?forecast_days=7&$UNITS&daily=$DAILY_VARS")
+    @GET("https://api.open-meteo.com/v1/forecast?forecast_days=8&$UNITS&daily=$DAILY_VARS")
     override suspend fun getDailyWeather(
         @Query("latitude") latitude: Float,
         @Query("longitude") longitude: Float,

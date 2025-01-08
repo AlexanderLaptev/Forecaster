@@ -89,7 +89,7 @@ data class DailyUnits(
 
 data class DailyWeather(
     @SerializedName("time") var time: List<String> = arrayListOf(),
-    @SerializedName("temperature_2m_min") var temperature2mMin: List<Int> = emptyList(),
+    @SerializedName("temperature_2m_min") var temperature2mMin: List<Double> = emptyList(),
     @SerializedName("temperature_2m_max") var temperature2mMax: List<Double> = emptyList(),
     @SerializedName("weather_code") var weatherCode: List<Int> = emptyList(),
 )

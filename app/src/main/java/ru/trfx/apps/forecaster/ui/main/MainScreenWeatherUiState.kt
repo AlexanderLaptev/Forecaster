@@ -1,5 +1,7 @@
 package ru.trfx.apps.forecaster.ui.main
 
+import ru.trfx.apps.forecaster.R
+
 enum class WeatherType(val key: String) {
     Sunny("sunny"),
     Cloudy("cloudy"),
@@ -16,7 +18,17 @@ enum class WeatherType(val key: String) {
             71, 73, 75, 77, 85, 86 -> Snowing
             else -> Cloudy
         }
+
+        private val toDrawableMap = mapOf(
+            Sunny to R.drawable.sunny_24px,
+            Cloudy to R.drawable.cloud_24px,
+            PartlyCloudy to R.drawable.partly_cloudy_day_24px,
+            Raining to R.drawable.rainy_24px,
+            Snowing to R.drawable.weather_snowy_24px,
+        )
     }
+
+    val drawable: Int get() = toDrawableMap[this]!!
 }
 
 data class MainScreenWeatherUiState(
@@ -26,4 +38,12 @@ data class MainScreenWeatherUiState(
     val windSpeed: Float = 0.0f,
     val pressure: Float = 0.0f,
     val precipitationChance: Int = 0,
+    val dailyForecast: List<DailyWeatherUiState> = emptyList(),
+)
+
+data class DailyWeatherUiState(
+    val date: String,
+    val weatherType: WeatherType,
+    val maxTemp: Float,
+    val minTemp: Float,
 )
