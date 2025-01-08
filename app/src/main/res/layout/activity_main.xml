@@ -313,12 +313,12 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button
-        android:id="@+id/button_week_forecast"
+        android:id="@+id/button_hourly_details"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:backgroundTint="?android:attr/textColorPrimary"
-        android:text="Weekly Forecast"
+        android:text="Hourly Details"
         android:textColor="?android:attr/textColorPrimaryInverse"
         app:cornerRadius="@null"
         app:layout_constraintEnd_toEndOf="@+id/layout_weather_details"

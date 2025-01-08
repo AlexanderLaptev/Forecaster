@@ -60,7 +60,7 @@ data class HourlyUnits(
 
 data class HourlyWeather(
     @SerializedName("time") var time: List<String> = emptyList(),
-    @SerializedName("temperature_2m") var temperature2m: List<Int> = emptyList(),
+    @SerializedName("temperature_2m") var temperature2m: List<Double> = emptyList(),
     @SerializedName("relative_humidity_2m") var relativeHumidity2m: List<Int> = emptyList(),
     @SerializedName("pressure_msl") var pressureMsl: List<Double> = emptyList(),
     @SerializedName("precipitation_probability") var precipitationProbability: List<Int> = emptyList(),

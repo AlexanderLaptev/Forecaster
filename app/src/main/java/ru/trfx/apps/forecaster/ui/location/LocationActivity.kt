@@ -58,7 +58,7 @@ class LocationActivity : AppCompatActivity() {
             })
         }
 
-        recyclerView = findViewById(R.id.recycler_view)
+        recyclerView = findViewById(R.id.recycler)
         recyclerView.layoutManager = LinearLayoutManager(this)
         adapter = LocationAdapter(viewModel.locationItems.value) {
             val location = viewModel.searchResults[it]
@@ -70,7 +70,9 @@ class LocationActivity : AppCompatActivity() {
                     location.longitude!!.toFloat()
                 )
             )
-            startActivity(Intent(this, MainActivity::class.java))
+            startActivity(Intent(this, MainActivity::class.java).apply {
+                addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
+            })
         }
         recyclerView.adapter = adapter
 

@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import ru.trfx.apps.forecaster.data.preferences.PreferencesRepository
 import ru.trfx.apps.forecaster.data.weather.WeatherRepository
+import ru.trfx.apps.forecaster.util.hPaToMmHg
 import java.util.Locale
 
 class MainViewModel(
@@ -18,11 +19,9 @@ class MainViewModel(
     private val prefsRepo: PreferencesRepository,
 ) : ViewModel() {
     companion object {
-        private const val DAILY_DATE_PATTERN = "MMM dd"
-
         @SuppressLint("SimpleDateFormat")
         private val isoDateFormat = SimpleDateFormat("yyyy-MM-dd")
-        private val dailyDateFormat = SimpleDateFormat(DAILY_DATE_PATTERN, Locale.US)
+        private val dailyDateFormat = SimpleDateFormat("MMM dd", Locale.US)
     }
 
     private val _uiState = MutableStateFlow(MainScreenWeatherUiState())
@@ -60,7 +59,7 @@ class MainViewModel(
                     weather.temperature2m!!.toFloat(),
                     weather.relativeHumidity2m!!,
                     weather.windSpeed10m!!.toFloat(),
-                    weather.pressureMsl!!.toFloat(),
+                    hPaToMmHg(weather.pressureMsl!!.toFloat()),
                     weather.precipitationProbability!!,
                     dailyForecast,
                 )

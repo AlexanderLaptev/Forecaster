@@ -5,10 +5,10 @@ import android.content.Intent
 import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
 import android.os.Bundle
+import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -26,9 +26,12 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.trfx.apps.forecaster.R
 import ru.trfx.apps.forecaster.data.preferences.LocationPrefs
 import ru.trfx.apps.forecaster.data.preferences.PreferencesRepository
+import ru.trfx.apps.forecaster.ui.hourly.HourlyDetailsActivity
 import ru.trfx.apps.forecaster.ui.location.LocationActivity
 import java.util.Locale
+import kotlin.math.roundToInt
 
+// TODO: prevent orientation changing
 class MainActivity : AppCompatActivity() {
     companion object {
         private const val DATE_PATTERN = "EEE, MMM dd, yyyy"
@@ -48,7 +51,9 @@ class MainActivity : AppCompatActivity() {
 
         val locationPrefs = prefsRepo.loadLocation()
         if (locationPrefs == null) {
-            startActivity(Intent(this, PreferencesRepository::class.java))
+            startActivity(Intent(this, PreferencesRepository::class.java).apply {
+                addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
+            })
             return
         }
 
@@ -58,6 +63,7 @@ class MainActivity : AppCompatActivity() {
         setupChangeLocationButton()
         setupRefreshButton()
         setupAboutButton()
+        setupHourlyDetailsButton()
         setupViewmodel()
         setupDaily()
 
@@ -83,6 +89,12 @@ class MainActivity : AppCompatActivity() {
                 .setCancelable(true)
                 .setPositiveButton("OK") { _, _ -> }
                 .show()
+        }
+    }
+
+    private fun setupHourlyDetailsButton() {
+        findViewById<Button>(R.id.button_hourly_details).setOnClickListener {
+            startActivity(Intent(this, HourlyDetailsActivity::class.java))
         }
     }
 
@@ -121,14 +133,8 @@ class MainActivity : AppCompatActivity() {
                     temperature.text = String.format(Locale.US, "%.1f", it.temperature)
                     humidity.text = "${it.humidity}%"
                     windSpeed.text = String.format(Locale.US, "%.1f", it.windSpeed)
-                    pressure.text = String.format(Locale.US, "%.1f", it.pressure)
+                    pressure.text = it.pressure.roundToInt().toString()
                     precipitationChance.text = "${it.precipitationChance}%"
-
-                    Toast.makeText(
-                        this@MainActivity,
-                        "Weather updated",
-                        Toast.LENGTH_SHORT
-                    ).show()
 
                     dailyAdapter.data = it.dailyForecast
                     dailyAdapter.notifyDataSetChanged()
